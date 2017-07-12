@@ -27,6 +27,8 @@ MAX_Y_SPEED=20
 
 BACK_COLOR=(0,0,0)  # 0,0,0 = Black
 
+FPS=30
+
 ################################################
 ################################################
 
@@ -60,6 +62,10 @@ class Position():
 
 ################################################
 ################################################
+# Time Handler
+clock = pg.time.Clock()
+
+
 position=Position()
 speed=Speed()
 
@@ -79,6 +85,7 @@ pg.display.flip()
 
 while 1:
 
+    clock.tick(30)
     for event in pg.event.get():        # liste des évenements utilisateurs
         #event=pg.event.poll()          # récupère le premier event
         if  hasattr(event, 'key'):      # Event clavier
