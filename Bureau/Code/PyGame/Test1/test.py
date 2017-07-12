@@ -89,7 +89,7 @@ while 1:
                 elif event.key == K_DOWN: speed.edit(0,2)
                 elif event.key == K_ESCAPE: sys.exit(0)     # quit the game
             elif event.type == KEYUP :  # relachement touche
-                speed.edit=(0,0)
+                speed.edit(0,0)
 
     position.edit(speed)
     screen.fill(BACK_COLOR)
