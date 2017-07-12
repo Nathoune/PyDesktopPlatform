@@ -1,6 +1,9 @@
 # coding: utf-8
 # Created on 9/07/17
 # 1st attempt to code PyGame
+# VI ADVENTURE
+# on 11/07/2017 : Masses modifs...
+
 # By Nathoune
 
 import numpy as np
