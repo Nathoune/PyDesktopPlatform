@@ -8,7 +8,6 @@ import math
 import pygame as pg
 from pygame.locals import *
 import time
-import sys
 
 ################################################
 ################################################
@@ -33,16 +32,16 @@ FPS=30
 ################################################
 
 class Speed():
-    y=0
     x=0
+    y=0
 
     def init(self):
-        self.y=0
         self.x=0
+        self.y=0
 
     def edit(self,newX,newY):
-        self.x=newX
-        self.y=newY
+        self.x+=newX
+        self.y+=newY
 
 #######################
 
@@ -76,29 +75,32 @@ pikachu=pg.transform.scale(pikachu, (PIKACHU_SIZE_X, PIKACHU_SIZE_Y))
 speed.init()
 position.init()
 
-
+# Refresh screen
 screen.blit(pikachu, (position.x,position.y))
 pg.display.flip()
 
 ################################################
 ################################################
+run=1
 
-while 1:
+while run:
 
     clock.tick(30)
-    for event in pg.event.get():        # liste des évenements utilisateurs
-        #event=pg.event.poll()          # récupère le premier event
-        if  hasattr(event, 'key'):      # Event clavier
-            if event.type == KEYDOWN :  # appui touche
-                if event.key == K_RIGHT: speed.edit(2,0)
-                elif event.key == K_LEFT: speed.edit(-2,0)
-                elif event.key == K_UP: speed.edit(0,-2)
-                elif event.key == K_DOWN: speed.edit(0,2)
-                elif event.key == K_ESCAPE: sys.exit(0)     # quit the game
-            elif event.type == KEYUP :  # relachement touche
-                speed.edit(0,0)
+
+    pg.event.get()
+
+    keys = pg.key.get_pressed()             # Etat du clavier au moment t
+    if keys[K_RIGHT]: speed.edit(2,0)
+    if keys[K_LEFT]: speed.edit(-2,0)
+    if keys[K_UP]: speed.edit(0,-2)
+    if keys[K_DOWN]: speed.edit(0,2)
+    if keys[K_ESCAPE] : run=0
+
 
     position.edit(speed)
+    # Clean sreen
     screen.fill(BACK_COLOR)
+    #Refresh screen
     screen.blit(pikachu, (position.x, position.y))
     pg.display.flip()
+    speed.init()
