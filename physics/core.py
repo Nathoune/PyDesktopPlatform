@@ -13,7 +13,7 @@ class Speed(object):
     x=0
     y=0
 
-    def init(self):
+    def init(self,x,y):
         self.x=0
         self.y=0
 
