@@ -6,10 +6,6 @@ Folders are platforms and files are deadly.
 
 #############################################################
 
-
-
-J'ai fais un peu de la merde sur mon push je maitrise pas encore, j'ai envoyé tout un path, c'est pas la joie je pense.
-
 Sinon
   test.py
     Test de création de fenêtre, intégration de graphismes, déplacement d'objets
