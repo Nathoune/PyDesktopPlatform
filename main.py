@@ -3,12 +3,16 @@
 # 1st attempt to code PyGame
 # By Nathoune
 
-import numpy as np
-import math
 import pygame as pg
-from pygame.locals import *
-import time
+from pygame.locals import (K_RIGHT,
+                           K_LEFT,
+                           K_UP,
+                           K_DOWN,
+                           K_ESCAPE,
+                           )
 from path import Path
+
+from physics.core import Position, Speed
 
 ################################################ 
 ################################################
@@ -38,33 +42,6 @@ FPS=30
 ################################################
 ################################################
 
-class Speed():
-    x=0
-    y=0
-
-    def init(self):
-        self.x=0
-        self.y=0
-
-    def edit(self,newX,newY):
-        self.x+=newX
-        self.y+=newY
-
-#######################
-
-class Position():
-    y=0
-    x=0
-
-    def init(self):
-        self.y=INITIAL_Y_POS
-        self.x=INITIAL_X_POS
-
-    def edit(self, speed):
-        if self.x+speed.x<WINDOWS_SIZE_X-PIKACHU_SIZE_X and self.x+speed.x>0 :
-            self.x+=speed.x
-        if self.y+speed.y<WINDOWS_SIZE_Y-PIKACHU_SIZE_Y and self.y+speed.y>0 :
-            self.y+=speed.y
 
 ################################################
 ################################################
@@ -79,8 +56,8 @@ screen = pg.display.set_mode((WINDOWS_SIZE_X,WINDOWS_SIZE_Y))
 pikachu=pg.image.load(DATA_FOLDER / 'Pikachu-As-Ninja.png')
 pikachu=pg.transform.scale(pikachu, (PIKACHU_SIZE_X, PIKACHU_SIZE_Y))
 
-speed.init()
-position.init()
+speed.init(0,0)
+position.init(INITIAL_X_POS, INITIAL_X_POS)
 
 # Refresh screen
 screen.blit(pikachu, (position.x,position.y))
@@ -88,7 +65,7 @@ pg.display.flip()
 
 ################################################
 ################################################
-run=1
+run=True
 
 while run:
 
@@ -101,13 +78,17 @@ while run:
     if keys[K_LEFT]: speed.edit(-2,0)
     if keys[K_UP]: speed.edit(0,-2)
     if keys[K_DOWN]: speed.edit(0,2)
-    if keys[K_ESCAPE] : run=0
+    if keys[K_ESCAPE] : run=False
 
 
-    position.edit(speed)
+    position.edit(speed,
+                  WINDOWS_SIZE_X,
+                  WINDOWS_SIZE_Y,
+                  PIKACHU_SIZE_X,
+                  PIKACHU_SIZE_Y)
     # Clean sreen
     screen.fill(BACK_COLOR)
     #Refresh screen
     screen.blit(pikachu, (position.x, position.y))
     pg.display.flip()
-    speed.init()
+    speed.init(0,0)
