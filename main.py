@@ -88,7 +88,7 @@ pg.display.flip()
 
 ################################################
 ################################################
-run=1
+run=True
 
 while run:
 
@@ -101,7 +101,7 @@ while run:
     if keys[K_LEFT]: speed.edit(-2,0)
     if keys[K_UP]: speed.edit(0,-2)
     if keys[K_DOWN]: speed.edit(0,2)
-    if keys[K_ESCAPE] : run=0
+    if keys[K_ESCAPE] : run=False
 
 
     position.edit(speed)
