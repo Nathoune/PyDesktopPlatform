@@ -8,6 +8,13 @@ import math
 import pygame as pg
 from pygame.locals import *
 import time
+from path import Path
+
+################################################ 
+################################################
+
+DATA_FOLDER = Path("data")
+
 
 ################################################
 ################################################
@@ -69,7 +76,7 @@ position=Position()
 speed=Speed()
 
 screen = pg.display.set_mode((WINDOWS_SIZE_X,WINDOWS_SIZE_Y))
-pikachu=pg.image.load('Pikachu-As-Ninja.png')
+pikachu=pg.image.load(DATA_FOLDER / 'Pikachu-As-Ninja.png')
 pikachu=pg.transform.scale(pikachu, (PIKACHU_SIZE_X, PIKACHU_SIZE_Y))
 
 speed.init()
