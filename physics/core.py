@@ -1,7 +1,7 @@
 '''
 Created on 20 juil. 2017
 
-Defines objects to be used in the phics engine.
+Defines objects to be used in the physics engine.
 So far :
     - Position
     - Speed
