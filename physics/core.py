@@ -18,7 +18,7 @@ class Entity(object):
 
     '''
 
-    def __init__(self, name, image, x=0, y=0, size=(100, 100)):
+    def __init__(self, name, image, x=0, y=0, size=(100, 100), speed=1):
         self.name = name
         self.size = size
         self.image = pg.image.load(image).convert()
@@ -28,7 +28,7 @@ class Entity(object):
         self.rect.centerx = x
         self.rect.centery = y
 
-        self.speed = 1
+        self.speed = speed
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)

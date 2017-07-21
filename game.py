@@ -13,6 +13,7 @@ from pygame.locals import (K_RIGHT,
                            )
 from path import Path
 from physics.core import Block, Character
+import random
 
 DATA_FOLDER = Path("data")
 
@@ -20,7 +21,7 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
 # from https://stackoverflow.com/questions/19963271/pygame-display-multiple-images-randomly
-#----------------------------------------------------------------------
+##########################################################################
 
 
 class Game(object):
@@ -34,20 +35,24 @@ class Game(object):
         self.background = pygame.image.load(
             DATA_FOLDER / "background.jpg").convert()
 
+        self.acceleration = 1
+
         self.player = Character("pikachu",
+                                speed=10,
                                 image=DATA_FOLDER / "pikachu.png",
                                 x=(1024 - 100) / 2,
                                 y=(600 - 100) / 2)
         self.blocks = []
 
-        # create 3 balls 1...3
+        # create 3 blocks randomly disposed
 
-        for i in range(1, 2):
-            block = Block(DATA_FOLDER / "folder-icon.jpg", x=300, y=300)
-#             player.update()  # set random position on start
+        for i in range(3):
+            randx = random.randint(0, size[0])
+            randy = random.randint(0, size[1])
+            block = Block(DATA_FOLDER / "folder-icon.jpg", x=randx, y=randy)
             self.blocks.append(block)
 
-    #------------
+    #####################
 
     def run(self):
 
@@ -55,6 +60,9 @@ class Game(object):
         RUNNING = True
 
         while RUNNING:
+            # prevents from falling underground
+            if self.player.rect.bottom <= self.screen.get_height():
+                self.player.move(0, self.acceleration)
             pygame.event.get()
             # --- events ---
 
@@ -78,11 +86,8 @@ class Game(object):
             # place for updates
 
             # --- draws ---
-
             self.screen.fill(BLACK)
-
             self.screen.blit(self.background, self.background.get_rect())
-
             self.player.draw(self.screen)
             for block in self.blocks:
                 block.draw(self.screen)
