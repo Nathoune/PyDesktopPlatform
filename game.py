@@ -62,20 +62,24 @@ class Game(object):
 
         while RUNNING:
             # prevents from falling underground
-            if self.player.rect.bottom <= self.screen.get_height():
+            if self.player.rect.bottom < self.screen.get_height():
                 self.player.move(0, self.acceleration)
             pygame.event.get()
             # --- events ---
 
             keys = pygame.key.get_pressed()  # Etat du clavier au moment t
             if keys[K_RIGHT]:
-                self.player.move(2, 0)
+                if self.player.rect.right < self.screen.get_width():
+                    self.player.move(2, 0)
             if keys[K_LEFT]:
-                self.player.move(-2, 0)
+                if self.player.rect.left > 0:
+                    self.player.move(-2, 0)
             if keys[K_UP]:
-                self.player.move(0, -2)
+                if self.player.rect.top > 0:
+                    self.player.move(0, -2)
             if keys[K_DOWN]:
-                self.player.move(0, 2)
+                if self.player.rect.bottom < self.screen.get_height():
+                    self.player.move(0, 2)
             if keys[K_ESCAPE]:
                 RUNNING = False
                 # changes position when key is pressed
