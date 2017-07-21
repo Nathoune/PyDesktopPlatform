@@ -9,6 +9,8 @@ So far :
 @author: dubusster
 '''
 
+import pygame as pg
+
 
 class Entity(object):
     '''
@@ -16,38 +18,43 @@ class Entity(object):
 
     '''
 
-    def __init__(self, name, pos_x=0, pos_y=0, win_x=1024, win_y=600, size=(100, 100)):
+    def __init__(self, name, image, x=0, y=0, size=(100, 100)):
         self.name = name
-        self.position = Position()
-        self.position.init(pos_x, pos_y)
-        self.speed = Speed()
-        self.win_size = (win_x, win_y)
         self.size = size
+        self.image = pg.image.load(image).convert()
+        self.image = pg.transform.scale(self.image,
+                                        size)
+        self.rect = self.image.get_rect()
+        self.rect.centerx = x
+        self.rect.centery = y
 
-    def move(self):
-        win_x, win_y = self.win_size
-        self.position.edit(self.speed, win_x, win_y, self.x, self.y)
+        self.position = Position(x, y)
+
+        self.speed = 1
+
+    def draw(self, screen):
+        screen.blit(self.image, self.rect)
 
     @property
     def x(self):
-        return self.position.x
+        return self.rect.x
 
     @x.setter
     def x(self, value):
-        self.position.x = value
+        self.rect.x = value
 
     @property
     def y(self):
-        return self.position.y
+        return self.rect.y
 
     @y.setter
     def y(self, value):
-        self.position.y = value
+        self.rect.y = value
 
 
 class Block(Entity):
-    def __init__(self, **kwargs):
-        super(Block, self).__init__("Block", **kwargs)
+    def __init__(self, image, **kwargs):
+        super(Block, self).__init__("Block", image, **kwargs)
 
     def move(self):
         '''
@@ -59,6 +66,13 @@ class Block(Entity):
 class Character(Entity):
     def __init__(self, name, **kwargs):
         super(Character, self).__init__(name, **kwargs)
+
+    def move(self, dx, dy):
+        self.x += self.speed * dx
+        self.y += self.speed * dy
+
+    def update(self):
+        self.rect.topleft = self.x, self.y
 
 
 class Speed(object):
