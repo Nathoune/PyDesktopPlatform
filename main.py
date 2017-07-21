@@ -12,7 +12,7 @@ from pygame.locals import (K_RIGHT,
                            )
 from path import Path
 
-from physics.core import Position, Speed
+from physics.core import Entity
 
 ################################################
 ################################################
@@ -48,19 +48,15 @@ FPS = 30
 # Time Handler
 clock = pg.time.Clock()
 
-
-position = Position()
-speed = Speed()
-
 screen = pg.display.set_mode((WINDOWS_SIZE_X, WINDOWS_SIZE_Y))
-pikachu = pg.image.load(DATA_FOLDER / 'Pikachu-As-Ninja.png')
-pikachu = pg.transform.scale(pikachu, (PIKACHU_SIZE_X, PIKACHU_SIZE_Y))
+pika = pg.image.load(DATA_FOLDER / 'Pikachu-As-Ninja.png')
+pika = pg.transform.scale(pika, (PIKACHU_SIZE_X, PIKACHU_SIZE_Y))
 
-speed.init(0, 0)
-position.init(INITIAL_X_POS, INITIAL_X_POS)
+pikachu = Entity('Pikachu', INITIAL_X_POS, INITIAL_Y_POS)
+
 
 # Refresh screen
-screen.blit(pikachu, (position.x, position.y))
+screen.blit(pika, (pikachu.x, pikachu.y))
 pg.display.flip()
 
 ################################################
@@ -75,24 +71,21 @@ while run:
 
     keys = pg.key.get_pressed()  # Etat du clavier au moment t
     if keys[K_RIGHT]:
-        speed.edit(2, 0)
+        pikachu.speed.edit(2, 0)
     if keys[K_LEFT]:
-        speed.edit(-2, 0)
+        pikachu.speed.edit(-2, 0)
     if keys[K_UP]:
-        speed.edit(0, -2)
+        pikachu.speed.edit(0, -2)
     if keys[K_DOWN]:
-        speed.edit(0, 2)
+        pikachu.speed.edit(0, 2)
     if keys[K_ESCAPE]:
         run = False
 
-    position.edit(speed,
-                  WINDOWS_SIZE_X,
-                  WINDOWS_SIZE_Y,
-                  PIKACHU_SIZE_X,
-                  PIKACHU_SIZE_Y)
+    pikachu.move()
+
     # Clean sreen
     screen.fill(BACK_COLOR)
     # Refresh screen
-    screen.blit(pikachu, (position.x, position.y))
+    screen.blit(pika, (pikachu.x, pikachu.y))
     pg.display.flip()
-    speed.init(0, 0)
+    pikachu.speed.init(0, 0)
