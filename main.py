@@ -12,7 +12,7 @@ from pygame.locals import (K_RIGHT,
                            )
 from path import Path
 
-from physics.core import Character
+from physics.core import Character, Block
 
 ################################################
 ################################################
@@ -49,14 +49,23 @@ FPS = 30
 clock = pg.time.Clock()
 
 screen = pg.display.set_mode((WINDOWS_SIZE_X, WINDOWS_SIZE_Y))
-pika = pg.image.load(DATA_FOLDER / 'Pikachu-As-Ninja.png')
-pika = pg.transform.scale(pika, (PIKACHU_SIZE_X, PIKACHU_SIZE_Y))
 
-pikachu = Character('Pikachu', pos_x=INITIAL_X_POS, pos_y=INITIAL_Y_POS)
 
+pikachu = Character('Pikachu',
+                    image=DATA_FOLDER / 'Pikachu-As-Ninja.png',
+                    pos_x=INITIAL_X_POS,
+                    pos_y=INITIAL_Y_POS)
+
+block = Block(image=DATA_FOLDER / "folder-icon.jpg",
+              pos_x=300,
+              pos_y=300)
+
+entities = [pikachu, block]
 
 # Refresh screen
-screen.blit(pika, (pikachu.x, pikachu.y))
+for entity in entities:
+    screen.blit(entity.image, entity.size)
+
 pg.display.flip()
 
 ################################################
@@ -86,6 +95,7 @@ while run:
     # Clean sreen
     screen.fill(BACK_COLOR)
     # Refresh screen
-    screen.blit(pika, (pikachu.x, pikachu.y))
+    for entity in entities:
+        screen.blit(entity.image, entity.size)
     pg.display.flip()
     pikachu.speed.init(0, 0)
