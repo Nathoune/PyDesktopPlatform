@@ -54,9 +54,6 @@ class Game(object):
         clock = pygame.time.Clock()
         RUNNING = True
 
-        for block in self.blocks:
-            block.draw(self.screen)
-
         while RUNNING:
             pygame.event.get()
             # --- events ---
@@ -87,6 +84,8 @@ class Game(object):
             self.screen.blit(self.background, self.background.get_rect())
 
             self.player.draw(self.screen)
+            for block in self.blocks:
+                block.draw(self.screen)
 
             pygame.display.flip()
 

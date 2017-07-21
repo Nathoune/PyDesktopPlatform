@@ -28,12 +28,13 @@ class Entity(object):
         self.rect.centerx = x
         self.rect.centery = y
 
-        self.position = Position(x, y)
-
         self.speed = 1
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
+
+    def update(self):
+        self.rect.topleft = self.x, self.y
 
     @property
     def x(self):
@@ -70,38 +71,3 @@ class Character(Entity):
     def move(self, dx, dy):
         self.x += self.speed * dx
         self.y += self.speed * dy
-
-    def update(self):
-        self.rect.topleft = self.x, self.y
-
-
-class Speed(object):
-
-    def __init__(self, x=0, y=0):
-        self.init(x, y)
-
-    def init(self, x, y):
-        self.x = x
-        self.y = y
-
-    def edit(self, newX, newY):
-        self.x += newX
-        self.y += newY
-
-#######################
-
-
-class Position(object):
-
-    def __init__(self, x=0, y=0):
-        self.init(x, y)
-
-    def init(self, x, y):
-        self.x = x
-        self.y = y
-
-    def edit(self, speed, win_x, win_y, obj_x, obj_y):
-        if self.x + speed.x < win_x - obj_x and self.x + speed.x > 0:
-            self.x += speed.x
-        if self.y + speed.y < win_y - obj_y and self.y + speed.y > 0:
-            self.y += speed.y
