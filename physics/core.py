@@ -46,12 +46,18 @@ class Entity(object):
 
 
 class Block(Entity):
-    pass
+    def __init__(self, **kwargs):
+        super(Block, self).__init__("Block", **kwargs)
+
+    def move(self):
+        '''
+        Overriding method to prevent block from moving
+        '''
+        pass
 
 
 class Character(Entity):
     def __init__(self, name, **kwargs):
-
         super(Character, self).__init__(name, **kwargs)
 
 
