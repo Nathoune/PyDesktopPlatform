@@ -20,7 +20,8 @@ DATA_FOLDER = Path("data")
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
-# from https://stackoverflow.com/questions/19963271/pygame-display-multiple-images-randomly
+# inspired from :
+# https://stackoverflow.com/questions/19963271/pygame-display-multiple-images-randomly
 ##########################################################################
 
 
