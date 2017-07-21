@@ -45,6 +45,16 @@ class Entity(object):
         self.position.y = value
 
 
+class Block(Entity):
+    pass
+
+
+class Character(Entity):
+    def __init__(self, name, **kwargs):
+
+        super(Character, self).__init__(name, **kwargs)
+
+
 class Speed(object):
 
     def __init__(self, x=0, y=0):

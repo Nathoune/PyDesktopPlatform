@@ -12,7 +12,7 @@ from pygame.locals import (K_RIGHT,
                            )
 from path import Path
 
-from physics.core import Entity
+from physics.core import Character
 
 ################################################
 ################################################
@@ -52,7 +52,7 @@ screen = pg.display.set_mode((WINDOWS_SIZE_X, WINDOWS_SIZE_Y))
 pika = pg.image.load(DATA_FOLDER / 'Pikachu-As-Ninja.png')
 pika = pg.transform.scale(pika, (PIKACHU_SIZE_X, PIKACHU_SIZE_Y))
 
-pikachu = Entity('Pikachu', INITIAL_X_POS, INITIAL_Y_POS)
+pikachu = Character('Pikachu', pos_x=INITIAL_X_POS, pos_y=INITIAL_Y_POS)
 
 
 # Refresh screen
